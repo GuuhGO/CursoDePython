@@ -39,3 +39,6 @@ for indice in range(len(venda)):
     print(
         f"{str(quantidade).rjust(11)}UN X {str(valor).ljust(6)}{str(subtotal).rjust(23)}"
     )
+
+print("-" * 46)
+print("TOTAL R$", str(valor_total).rjust(37))

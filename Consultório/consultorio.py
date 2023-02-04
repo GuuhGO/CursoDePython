@@ -38,10 +38,10 @@ def login(email, senha):
         return True
 def verificaAgenda():
     for consulta in consultasAgendadas[infoCliente["nome"]]:
-        # if(consultasAgendadas[infoCliente["nome"]].get(consulta) == ""):
-        print(consultasAgendadas[infoCliente["nome"]].values())
         
+        pass
 def verificaPlano():
+
     pass
 def agendarConsulta():
     pass

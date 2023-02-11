@@ -1,26 +1,21 @@
-usuarios = {
-    "Usuarios": {
-        
-    },
-}
-
+usuarios = {}
 print("BEM VINDO!!")
-
 def adicionaUsuario():
     print("Cadastro de usuário!")
     userName = input("Insira o nome de usuário: ")
-    usuarios.update({"Usuarios" : {userName: ""}})
+    usuarios.update({userName: ""})
     password = input("Insira a senha: ")
-    usuarios.update({"Usuarios":{userName:{"Senha":password}}})
+    usuarios.update({userName:{"Senha":password}})
     print(usuarios)
 def login():
     while True:
         loginUserName = input("Usuário: ")
-        if(loginUserName in usuarios["Usuarios"]):
+        if(loginUserName in usuarios):
             while True:
                 loginPassword = input("Senha: ")
-                if(loginPassword == usuarios["Usuarios"][loginUserName]["Senha"]):
+                if(loginPassword == usuarios[loginUserName]["Senha"]):
                     print("Login efetuado com sucesso!\nAguarde, estamos carregando as informações...")
+                    input("Pressione ENTER para continuar")
                     break
                 else:
                     print("Senha incorreta, tente novamente!")
@@ -37,17 +32,22 @@ def menu():
             "\n4 - Sair"
             )
         escolha = int(input("Resposta: "))
+        print()
         match escolha:
             case 1:
                 adicionaUsuario()
                 print("Usuario adicionado!\n")
             case 2:
                 login()
+                break
             case 3:
-                print(usuarios)
+                print("\nUsuários cadastados:")
+                for a in usuarios:
+                    print(a)
+                print()
             case 4:
                 print("Saindo...")
                 exit()
             case _:
-                print("Opção inválida!")
+                print("Opção inválida!\n")
 menu()

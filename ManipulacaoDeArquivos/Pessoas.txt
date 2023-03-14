@@ -5,7 +5,6 @@ id,produto,preco
 4,Diego,26,75.0
 5,Eduarda,19,55.0
 6,Felipe,31,90.0
-7,Gabriela,24,68.0
 8,Hugo,27,80.0
 9,Isabela,30,75.0
 10,João,23,72.0

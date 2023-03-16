@@ -2,25 +2,18 @@ import re
 
 ENC = "UTF-8"
 ARQUIVO_PESSOAS = r"ManipulacaoDeArquivos\Pessoas.txt"
-try:
-    with open(ARQUIVO_PESSOAS, "x", encoding=ENC) as filePerson:
-        print(filePerson.write("id,produto,preco\n"))
-except FileExistsError:
-    with open(ARQUIVO_PESSOAS, "r+", encoding=ENC) as filePerson:
-        if filePerson.read() == "":
-            filePerson.write("id,produto,preco\n")
-
 
 class Pessoas:
     def __init__(self):
-        self.nome = 0
-        self.idade = 0
-        self.peso = 0
-
+        print("Inicializando objeto")
+        try:
+            with open(ARQUIVO_PESSOAS, "x", encoding=ENC) as filePerson:
+                print(filePerson.write("id,produto,preco\n"))
+        except FileExistsError:
+            with open(ARQUIVO_PESSOAS, "r+", encoding=ENC) as filePerson:
+                if filePerson.read() == "":
+                    filePerson.write("id,produto,preco\n")
     def cadastraPessoa(self, nome: str, idade: int, peso: float):
-        self.nome = nome
-        self.idade = idade
-        self.peso = peso
         with open(ARQUIVO_PESSOAS, "r+", encoding=ENC) as filePerson:
             larg = len(filePerson.readlines())
             verif = False
@@ -28,7 +21,7 @@ class Pessoas:
             for count in filePerson.readlines():
                 if f"{nome},{idade},{peso}" in count:
                     verif = True
-                    print("Dados já cadastrados: ", filePerson.readline())
+                    print("Dados já cadastrados!")
                     break
             if verif == False:
                 filePerson.seek(0)
@@ -38,10 +31,9 @@ class Pessoas:
                     filePerson.write(f"{larg},{nome},{idade},{peso}\n")
 
     def consultaPessoa(self, id=-1, nome="NoneValue", idade=-1, peso=-1.0):
-        self.id = str(id)
-        self.nome = nome
-        self.idade = int(idade)
-        self.peso = float(peso)
+        id = str(id)
+        idade = int(idade)
+        peso = float(peso)
         matches = 0
         with open(ARQUIVO_PESSOAS, "r+", encoding=ENC) as filePerson:
             dados = []
@@ -50,19 +42,19 @@ class Pessoas:
             for count in dados[1:]:
                 filePerson.seek(0)
                 if (
-                    re.search(rf"{self.id}", str(count[0])) != None
-                    or re.search(rf"{self.nome.casefold()}", str(count[1])) != None
-                    or re.search(rf"{self.nome.capitalize()}", str(count[1])) != None
-                    or re.search(rf"{self.nome}", str(count[1])) != None
-                    or re.search(rf"{self.idade}", str(count[2])) != None
-                    or re.search(rf"{self.peso}", str(count[3])) != None
+                    re.search(rf"{id}", str(count[0])) != None
+                    or re.search(rf"{nome.casefold()}", str(count[1])) != None
+                    or re.search(rf"{nome.capitalize()}", str(count[1])) != None
+                    or re.search(rf"{nome}", str(count[1])) != None
+                    or re.search(rf"{idade}", str(count[2])) != None
+                    or re.search(rf"{peso}", str(count[3])) != None
                 ):
                     print(count)
                     matches += 1
-            print(f"\n{matches} correspondências encontradas!\n")
+            print(f"\n{matches} correspondência(s) encontrada(s)!\n")
 
     def apagarPessoa(self, busca):
-        self.busca = busca
+        busca = busca
         with open(ARQUIVO_PESSOAS, "r", encoding=ENC) as filePerson:
             linhas = filePerson.readlines()
         for i, linha in enumerate(linhas):
@@ -73,28 +65,24 @@ class Pessoas:
             for linha in linhas:
                 filePerson.write(linha)
 
-    def editarPessoa(self, busca, nomeN="NoneValue", idadeN=-1, pesoN=-1):
-        self.busca = busca
-        self.novoNome = nomeN
-        self.novaIdade = idadeN
-        self.novoPeso = pesoN
+    def editarPessoa(self, buscaID:int, nomeN="NoneValue", idadeN=-1, pesoN=-1):
         with open(ARQUIVO_PESSOAS, "r+", encoding=ENC) as filePerson:
             linhas = filePerson.readlines()
-            for count in linhas:
-                if self.busca in count and self.novoNome != "NoneValue":
-                    linhas[1] = self.novoNome
-                elif self.busca in count and self.novaIdade != -1:
-                    linhas[2] = self.novaIdade
-                elif self.busca in count and self.novoPeso != -1:
-                    linhas[3] = self.novoPeso
+            corresp = 0
+            for n,count in enumerate(linhas[1:],1):
+                if buscaID == int(count.split(',')[0]) and (nomeN != "NoneValue" or idadeN != -1 or pesoN != -1):
+                    corresp += 1
+                    linhas[n] = f"{count.split(',')[0]},{nomeN},{idadeN},{pesoN}\n"
+            if corresp < 1:
+                print("Nenhuma correspondência!")
         with open(ARQUIVO_PESSOAS, 'w+', encoding=ENC) as filePerson:
             for count in linhas:
                 filePerson.write(count)
 
 obj1 = Pessoas()
-obj1.editarPessoa("19,Silvia,24,62.0", "Carla", 22, 90.0)
-
-# obj1.consultaPessoa(nome="c")
+# obj1.cadastraPessoa("Jorge", 48, 110)
+# obj1.consultaPessoa(id=7)
+obj1.editarPessoa(buscaID=15, nomeN="Gustavo", idadeN=27, pesoN=95.0)
 
 # 0 - ID
 # 1 - Nome

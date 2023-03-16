@@ -1,10 +1,11 @@
 id,produto,preco
 1,Ana,22,60.0
 2,Bruno,28,85.0
-3,Carla,35,70.0
+3,Carla,35,70.0 
 4,Diego,26,75.0
 5,Eduarda,19,55.0
 6,Felipe,31,90.0
+7,Gustavo,21,70.0
 8,Hugo,27,80.0
 9,Isabela,30,75.0
 10,João,23,72.0
@@ -18,3 +19,5 @@ id,produto,preco
 18,Rafaela,27,68.0
 19,Silvia,24,62.0
 20,Tiago,30,85.0
+21,Péricles,48,110
+22,Jorge,48,110

@@ -1,8 +1,9 @@
 from tkinter import *
-windows = Tk()  # Instancia um objeto de uma janela
-windows.minsize(1366,768)
-windows.state("zoomed")
-windows.title("Python Course GUI!")
-label = Label(windows, text="Hello World!", font=("Arial", 40, "bold"), bg="#00ff00")
+from tkinter import ttk
+window = Tk()  # Instancia um objeto de uma janela
+window.minsize(1366,768)
+window.state("zoomed")
+window.title("Python Course GUI!")
+label = Label(master=window, text="Hello World!", font=("Arial", 40, "bold"), bg="#007acc")
 label.pack()
-windows.mainloop()  # Abre a janela na tela aguardando por eventos
+window.mainloop()
